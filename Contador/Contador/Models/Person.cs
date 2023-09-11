@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Contador.Models
+﻿namespace Contador.Models
 {
-    internal class Person
+    public class Person : BaseModel
     {
+        public string Name { get; set; }
+        public string? Cpf { get; set; }
+
+        public Person(string name, string? cpf)
+        {
+            Name = name;
+            Cpf = cpf;
+        }
     }
 }
