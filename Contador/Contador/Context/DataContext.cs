@@ -10,7 +10,15 @@ namespace Contador.Context
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Person>()
+                .Property(p => p.Name)
+                .HasMaxLength(100)
+                .IsRequired();
             
+            builder.Entity<Person>()
+                .Property(p => p.Cpf)
+                .HasMaxLength(14)
+                .IsRequired(false);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
