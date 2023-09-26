@@ -23,7 +23,7 @@ namespace Contador.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlServer(
-                "Data Source=Localhost;" +
+                "Data Source=DESKTOP-LTBAOUJ\\SQLEXPRESS;" +
                 "Initial Catalog=ContadorDB;" +
                 "Integrated Security=True;" +
                 "TrustServerCertificate=True"
