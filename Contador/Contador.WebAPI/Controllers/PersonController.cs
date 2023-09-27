@@ -7,7 +7,7 @@ namespace Contador.WebAPI.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class PersonController : ControllerBase
+    public class PersonController : Controller
     {
         [HttpGet("Id")]
         public async Task<IActionResult> GetPersonById(long id)
@@ -16,27 +16,47 @@ namespace Contador.WebAPI.Controllers
             {
                 using var context = new DataContext();
                 Person person = await context.Persons.FirstOrDefaultAsync(x => x.Id == id);
-                return Ok(person);
+                return Ok(new
+                {
+                    Success = true,
+                    Person = person
+                });
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new
+                {
+                    Success = false,
+                    Message = ex.Message
+                });
             }
         }
 
         [HttpGet]
         public async Task<IActionResult> GetPersons()
         {
-            using var context = new DataContext();
-            List<Person> persons = await context.Persons.ToListAsync();
-            return Ok(new
+            try
             {
-                Persons = persons
-            });
+                using var context = new DataContext();
+                List<Person> persons = await context.Persons.ToListAsync();
+                return Ok(new
+                {
+                    Success = true,
+                    Persons = persons
+                });
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(new
+                {
+                    Success = false,
+                    Message = ex.Message
+                });
+            }
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostPersonAsync(Person person)
+        public async Task<IActionResult> PostPerson(Person person)
         {
             try
             {
@@ -47,12 +67,17 @@ namespace Contador.WebAPI.Controllers
                 return Ok(new
                 {
                     Success = true,
+                    Person = person,
                     Message = "Pessoa adicionada com sucesso."
                 });
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new
+                {
+                    Success = false,
+                    Message = ex.Message
+                });
             }
         }
     }
