@@ -1,18 +1,17 @@
-﻿namespace Contador.Models
-{
-    public class Expent : BaseModel
-    {
-        public string Descricao { get; set; }
-        public decimal Value { get; set; }
-        public DateTime Date { get; set; }
-        public Category? Category { get; set; }
+﻿namespace Contador.Models;
 
-        public Expent(string descricao, decimal value, DateTime date, Category? category)
-        {
-            Descricao = descricao;
-            Value = value;
-            Date = date;
-            Category = category;
-        }
+public class Expent : BaseModel
+{
+    public string Description { get; set; }
+    public decimal Value { get; set; }
+    public DateTime Date { get; set; }
+    public Category? Category { get; set; }
+    
+    public Expent(string description, decimal value, DateTime date, Category? category)
+    {
+        Description = description;
+        Value = value;
+        Date = date;
+        Category = category;
     }
 }
