@@ -1,6 +1,5 @@
 ﻿using Contador.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Contador.Context
 {
@@ -16,19 +15,19 @@ namespace Contador.Context
                 .Property(p => p.Name)
                 .HasMaxLength(100)
                 .IsRequired();
-            
+
             builder.Entity<Person>()
                 .Property(p => p.Cpf)
                 .HasMaxLength(14)
                 .IsRequired(false);
 
             builder.Entity<Category>()
-                .Property (p => p.Name)
+                .Property(p => p.Name)
                 .HasMaxLength(100)
                 .IsRequired();
 
             builder.Entity<Category>()
-                .Property (p => p.Description)
+                .Property(p => p.Description)
                 .HasMaxLength(500)
                 .IsRequired();
         }
