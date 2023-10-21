@@ -1,7 +1,7 @@
-﻿namespace Contador.Models
+﻿namespace Contador.Models;
+
+public class BaseModel
 {
-    public class BaseModel
-    {
-        public long Id { get; set; }
-    }
+    public long Id { get; set; }
+    public DateTime DeletionDate { get; set; }
 }
