@@ -1,6 +1,8 @@
-﻿namespace Contador.Models;
+﻿using Contador.Models.Interfaces;
 
-public class Installment : BaseModel
+namespace Contador.Models;
+
+public class Installment : BaseModel, IPayable
 {
     public Debt Debt { get; set; }
     public double Value { get; set; }
