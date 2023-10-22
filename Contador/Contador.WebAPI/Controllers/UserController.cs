@@ -5,24 +5,24 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Contador.WebAPI.Controllers;
 
-[Route("api/[Controller]/[action]")]
-[Controller]
-public class CategoryController : Controller
+[Route("api/[controller]/[action]")]
+[ApiController]
+public class UserController : ControllerBase
 {
     [HttpGet("Id")]
-    public async Task<IActionResult> GetCategoryById(long id)
+    public async Task<IActionResult> GetUserById(long id)
     {
         try
         {
             using var context = new DataContext();
-            Category category = await context.Categories.FirstOrDefaultAsync(c => c.Id == id);
+            User user = await context.Users.FirstOrDefaultAsync(x => x.Id == id);
             return Ok(new
             {
                 Success = true,
-                Category = category,
+                User = user
             });
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             return BadRequest(new
             {
@@ -33,16 +33,16 @@ public class CategoryController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetCategories()
+    public async Task<IActionResult> GetUsers()
     {
         try
         {
             using var context = new DataContext();
-            List<Category> categories = await context.Categories.ToListAsync();
+            List<User> users = await context.Users.ToListAsync();
             return Ok(new
             {
                 Success = true,
-                Categories = categories
+                Users = users
             });
         }
         catch (Exception ex)
@@ -56,19 +56,19 @@ public class CategoryController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> PostCategory(Category category)
+    public async Task<IActionResult> PostUser(User user)
     {
         try
         {
             using var context = new DataContext();
-            context.Categories.Add(category);
+            await context.Users.AddAsync(user);
             await context.SaveChangesAsync();
 
             return Ok(new
             {
                 Success = true,
-                Category = category,
-                Message = "Categoria adicionada com sucesso"
+                User = user,
+                Message = "Usuário adicionado com sucesso."
             });
         }
         catch (Exception ex)
@@ -79,5 +79,5 @@ public class CategoryController : Controller
                 Message = ex.Message
             });
         }
-    } 
+    }
 }
