@@ -15,7 +15,10 @@ public class UserController : ControllerBase
         try
         {
             using var context = new DataContext();
+
             User user = await context.Users.FirstOrDefaultAsync(x => x.Id == id);
+            user.Person = await context.Persons.FirstOrDefaultAsync(x => x.Id == user.PersonId);
+
             return Ok(new
             {
                 Success = true,
@@ -56,11 +59,21 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> PostUser(User user)
+    public async Task<IActionResult> PostUser([FromBody] InsertUserDTO userDTO)
     {
         try
         {
             using var context = new DataContext();
+
+            Person person = await context.Persons.FirstOrDefaultAsync(x => x.Id == userDTO.PersonId);
+
+            User user = new User()
+            {
+                Login = userDTO.Login,
+                Password = userDTO.Password,
+                Person = person
+            };
+
             await context.Users.AddAsync(user);
             await context.SaveChangesAsync();
 

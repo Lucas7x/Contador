@@ -45,7 +45,7 @@ public class PersonController : Controller
                 Persons = persons
             });
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             return BadRequest(new
             {
@@ -56,10 +56,18 @@ public class PersonController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> PostPerson(Person person)
+    public async Task<IActionResult> PostPerson(InsertPersonDTO personDTO)
     {
         try
         {
+            Person person = new Person()
+            {
+                Name = personDTO.Name,
+                Cpf = personDTO.Cpf,
+                Phone = personDTO.Phone,
+                Mail = personDTO.Mail
+            };
+
             using var context = new DataContext();
             await context.Persons.AddAsync(person);
             await context.SaveChangesAsync();
