@@ -2,8 +2,8 @@
 
 public class Person : BaseModel
 {
-    public string Name { get; set; } = string.Empty;
-    public string? Cpf { get; set; } = string.Empty;
-    public string? Phone { get; set; } = string.Empty;
+    public string Name { get; set; }
+    public string? Cpf { get; set; }
+    public string? Phone { get; set; }
     public string? Mail { get; set; }
 }
