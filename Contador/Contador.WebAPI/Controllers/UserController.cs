@@ -3,6 +3,7 @@ using Contador.Models;
 using Contador.WebAPI.JSONs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Contador.WebAPI.Controllers;
 
@@ -18,6 +19,10 @@ public class UserController : ControllerBase
             using var context = new DataContext();
 
             User user = await context.Users.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (user == null)
+                throw new Exception("O usuário informado não foi encontrado.");
+            
             user.Person = await context.Persons.FirstOrDefaultAsync(x => x.Id == user.PersonId);
 
             return Ok(new
@@ -67,6 +72,9 @@ public class UserController : ControllerBase
             using var context = new DataContext();
 
             Person person = await context.Persons.FirstOrDefaultAsync(x => x.Id == userDTO.PersonId);
+
+            if (person == null)
+                throw new Exception("A pessoa informada não foi encontrada.");
 
             User user = new User()
             {
