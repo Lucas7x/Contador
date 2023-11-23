@@ -2,6 +2,7 @@
 using Contador.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Contador.WebAPI.Controllers;
 
@@ -16,6 +17,10 @@ public class CategoryController : Controller
         {
             using var context = new DataContext();
             Category category = await context.Categories.FirstOrDefaultAsync(c => c.Id == id);
+
+            if (category == null)
+                throw new Exception("A categoria buscada não foi encontrada.");
+
             return Ok(new
             {
                 Success = true,

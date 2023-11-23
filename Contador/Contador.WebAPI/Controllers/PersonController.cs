@@ -17,6 +17,10 @@ public class PersonController : Controller
         {
             using var context = new DataContext();
             Person person = await context.Persons.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (person == null)
+                throw new Exception("A pessoa buscada não foi encontrada.");
+
             return Ok(new
             {
                 Success = true,

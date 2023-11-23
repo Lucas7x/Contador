@@ -2,6 +2,7 @@
 using Contador.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Contador.WebAPI.Controllers;
 
@@ -16,6 +17,10 @@ public class DebtController : ControllerBase
         {
             using var context = new DataContext();
             Debt debt = await context.Debts.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (debt == null)
+                throw new Exception("A conta buscada não foi encontrada.");
+
             return Ok(new
             {
                 Success = true,

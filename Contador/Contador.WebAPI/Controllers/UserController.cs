@@ -21,7 +21,7 @@ public class UserController : ControllerBase
             User user = await context.Users.FirstOrDefaultAsync(x => x.Id == id);
 
             if (user == null)
-                throw new Exception("O usuário informado não foi encontrado.");
+                throw new Exception("O usuário buscado não foi encontrado.");
             
             user.Person = await context.Persons.FirstOrDefaultAsync(x => x.Id == user.PersonId);
 
